@@ -1,0 +1,17 @@
+[package]
+authors = ["vyfor"]
+categories = ["command-line-interface"]
+description = "A collection of terminal spinners"
+edition = "2024"
+keywords = ["terminal", "tui", "spinner", "animation"]
+license = "MIT"
+name = "rattles"
+repository = "https://github.com/vyfor/rattles"
+version = "0.1.0"
+
+[lib]
+crate-type = ["lib"]
+
+[dev-dependencies]
+crossterm = "0.29"
+ratatui = "0.29"
