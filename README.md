@@ -2,7 +2,7 @@
 
 ![Demo](./.github/assets/demo.gif)
 
-**Rattles** is a terminal spinner library for Rust. It is equipped with extensive preset library and lets you define custom spinners at compile time.
+**Rattles** is a terminal spinner library for Rust. It is equipped with extensive preset library and lets you define custom spinners at compile time. A work in progress.
 
 **Rattles** is *minimal*; it makes no assumptions about how the output will be used, and just works with no prior configuration required.
 
