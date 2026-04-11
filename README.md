@@ -100,11 +100,7 @@ Example showcasing all presets, built with [ratatui](https://ratatui.rs/):
 cargo run --example showcase
 ```
 
-There's also a minimal no_std-oriented usage example found [here](./examples/no_std.rs), including:
-
-- `TickedRattler` usage via `into_ticked()`
-- elapsed-time driven usage via `frame_at(...)`
-- index-driven usage via `frame(...)`
+There's also a minimal no_std-oriented usage example found [here](./examples/no_std.rs) with all usage patterns.
 
 ## Acknowledgements
 
