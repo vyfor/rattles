@@ -3,6 +3,18 @@
 use core::time::Duration;
 use rattles::presets::prelude as presets;
 
+fn using_ticked() {
+    let mut rattle = presets::dots().into_ticked();
+
+    for _ in 0..8 {
+        let _frame = rattle.current_frame();
+
+        // do something with frame
+
+        rattle.tick();
+    }
+}
+
 // a simple clock for demonstration purposes
 struct UserClock {
     elapsed_ms: u64,
@@ -47,6 +59,7 @@ fn using_frame_index() {
 }
 
 fn main() {
+    using_ticked();
     using_user_clock();
     using_frame_index();
 }

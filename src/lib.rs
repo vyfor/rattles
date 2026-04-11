@@ -9,8 +9,8 @@ mod size;
 mod state;
 
 pub use size::Size;
-pub use state::{Rattle, Rattler};
+pub use state::{Rattle, Rattler, TickedRattler};
 
 pub mod prelude {
-    pub use crate::{Rattle, Rattler, Size, presets::prelude::*};
+    pub use crate::{Rattle, Rattler, Size, TickedRattler, presets::prelude::*};
 }

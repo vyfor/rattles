@@ -2,7 +2,7 @@
 
 ![Demo](./.github/assets/demo.gif)
 
-**Rattles** is a terminal spinner library for Rust. It is equipped with extensive preset library and lets you define custom spinners at compile time. A work in progress.
+**Rattles** is a terminal spinner library for Rust with an extensive preset collection and lets you define custom spinners at compile time.
 
 - **Rattles** is *compile-time first*; all spinner data is baked in at compile time aiming for minimal overhead.
 
@@ -10,7 +10,7 @@
 
 ## Philosophy
 
-Most spinner libraries are built as actors or widgets. Rattles is not. It has no runtime, no lifecycle, and doesn't need to be integrated.
+Most spinner libraries are built as actors or widgets. Rattles is neither. It has no runtime, no lifecycle, and requires no integration by default.
 
 Spinners can be constructed directly in the render loop with negligible cost. The result is a library that gets out of your way.
 
@@ -20,7 +20,7 @@ Spinners can be constructed directly in the render loop with negligible cost. Th
 cargo add rattles
 ```
 
-### Minimal example
+### Basic usage
 
 ```rust
 use std::{io::Write, time::Duration};
@@ -43,34 +43,43 @@ fn main() {
 }
 ```
 
-The interval of the animation can be configured with `set_interval(...)` method, and the direction can be flipped with `reverse()`.
-
 ### Custom keyframes
 
 ```rust
 rattle!(
     Custom, // struct name
     custom, // method name
-    1,      // number of rows (string width)
+    1,      // row count (width of the spinner)
     100,    // interval in milliseconds
     ["⣾", "⣷", "⣯", "⣟", "⣻", "⣽", "⣾"] // keyframes
 )
 ```
 
-### `no_std` support
+### `no_std`
 
-`rattles` enables the `std` feature by default. To use it in `no_std` mode:
+`rattles` enables the `std` feature by default. To opt out:
 
 ```sh
 cargo add rattles --no-default-features
 ```
 
-In `no_std` mode, use time-driven or index-based APIs.
-The following APIs are only available with `std` enabled:
+Without `std`, the global clock is unavailable. Animations can still be driven three ways:
 
-- `Rattler::current_frames()`
-- `Rattler::current_frame()`
-- `Rattler::index()`
+- Time-based, with an external clock: 
+    ```rs
+    rattle.frame_at(elapsed)
+    ```
+- Index-based:
+    ```rs
+    rattle.frame(n)
+    ```
+- Tick-based:
+    ```rust
+    let mut rattle = presets::dots().into_ticked();
+    rattle.tick();
+    let frame = rattle.current_frame();
+    ```
+    Note that `TickedRattler` is stateful and must be stored.
 
 ## Presets
 
@@ -91,7 +100,11 @@ Example showcasing all presets, built with [ratatui](https://ratatui.rs/):
 cargo run --example showcase
 ```
 
-There's also a minimal no_std-oriented usage example found [here](./examples/no_std.rs).
+There's also a minimal no_std-oriented usage example found [here](./examples/no_std.rs), including:
+
+- `TickedRattler` usage via `into_ticked()`
+- elapsed-time driven usage via `frame_at(...)`
+- index-driven usage via `frame(...)`
 
 ## Acknowledgements
 
