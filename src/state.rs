@@ -13,33 +13,30 @@ pub trait Rattle: Copy + Default {
 
 #[derive(Debug, Clone)]
 pub struct Rattler<T: Rattle, const REVERSED: bool = false> {
-    interval: Duration,
-    interval_ns: u128,
+    interval_ms: u64,
     offset: usize,
-    _template: PhantomData<T>,
+    _marker: PhantomData<T>,
 }
 
 impl<T: Rattle, const REVERSED: bool> Rattler<T, REVERSED> {
     pub fn new() -> Self {
         let interval = T::INTERVAL;
         Self {
-            interval,
-            interval_ns: interval.as_nanos().max(1),
+            interval_ms: interval.as_millis().max(1) as u64,
             offset: 0,
-            _template: PhantomData,
+            _marker: PhantomData,
         }
     }
 
     pub fn with_offset(offset: usize) -> Self {
         Self {
-            interval: T::INTERVAL,
-            interval_ns: T::INTERVAL.as_nanos().max(1),
+            interval_ms: T::INTERVAL.as_millis().max(1) as u64,
             offset: if T::FRAMES.is_empty() {
                 0
             } else {
                 offset % T::FRAMES.len()
             },
-            _template: PhantomData,
+            _marker: PhantomData,
         }
     }
 
@@ -57,7 +54,7 @@ impl<T: Rattle, const REVERSED: bool> Rattler<T, REVERSED> {
 
     fn index_at_elapsed(&self, elapsed: Duration) -> usize {
         let len = T::FRAMES.len();
-        let base = base_index_at_elapsed_ns(elapsed.as_nanos(), self.interval_ns, len);
+        let base = base_index_at_elapsed_ms(elapsed.as_millis() as u64, self.interval_ms, len);
         let shifted = if len == 0 {
             0
         } else {
@@ -109,12 +106,11 @@ impl<T: Rattle, const REVERSED: bool> Rattler<T, REVERSED> {
     }
 
     pub const fn interval(&self) -> Duration {
-        self.interval
+        Duration::from_millis(self.interval_ms)
     }
 
     pub fn set_interval(mut self, interval: Duration) -> Self {
-        self.interval = interval;
-        self.interval_ns = interval.as_nanos().max(1);
+        self.interval_ms = interval.as_millis().max(1) as u64;
         self
     }
 
@@ -137,10 +133,9 @@ impl<T: Rattle, const REVERSED: bool> Default for Rattler<T, REVERSED> {
 impl<T: Rattle> Rattler<T, false> {
     pub fn reverse(self) -> Rattler<T, true> {
         Rattler {
-            interval: self.interval,
-            interval_ns: self.interval_ns,
+            interval_ms: self.interval_ms,
             offset: self.offset,
-            _template: PhantomData,
+            _marker: PhantomData,
         }
     }
 }
@@ -148,10 +143,9 @@ impl<T: Rattle> Rattler<T, false> {
 impl<T: Rattle> Rattler<T, true> {
     pub fn reverse(self) -> Rattler<T, false> {
         Rattler {
-            interval: self.interval,
-            interval_ns: self.interval_ns,
+            interval_ms: self.interval_ms,
             offset: self.offset,
-            _template: PhantomData,
+            _marker: PhantomData,
         }
     }
 }
@@ -173,10 +167,10 @@ fn playback_index_const<const REVERSED: bool>(index: usize, len: usize) -> usize
     if REVERSED { len - 1 - index } else { index }
 }
 
-fn base_index_at_elapsed_ns(elapsed_ns: u128, interval_ns: u128, len: usize) -> usize {
+fn base_index_at_elapsed_ms(elapsed_ms: u64, interval_ms: u64, len: usize) -> usize {
     if len == 0 {
         return 0;
     }
 
-    ((elapsed_ns / interval_ns.max(1)) as usize) % len
+    ((elapsed_ms / interval_ms.max(1)) as usize) % len
 }
