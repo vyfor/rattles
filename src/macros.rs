@@ -6,7 +6,7 @@ macro_rules! rattle {
 
         impl $crate::Rattle for $ty {
             const SIZE: $crate::Size = $crate::Size::new($width, 1);
-            const INTERVAL: std::time::Duration = std::time::Duration::from_millis($interval_ms);
+            const INTERVAL: core::time::Duration = core::time::Duration::from_millis($interval_ms);
             const FRAMES: &'static [&'static [&'static str]] = &[
                 $(&[$frame]),+
             ];

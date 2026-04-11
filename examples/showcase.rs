@@ -32,8 +32,8 @@ enum DirectionalRattler<T: rattles::Rattle> {
 impl<T: rattles::Rattle> DirectionalRattler<T> {
     fn tick_now(&mut self) -> &'static str {
         match self {
-            Self::Forward(rattler) => rattler.current_rows()[0],
-            Self::Reverse(rattler) => rattler.current_rows()[0],
+            Self::Forward(rattler) => rattler.current_frames()[0],
+            Self::Reverse(rattler) => rattler.current_frames()[0],
         }
     }
 

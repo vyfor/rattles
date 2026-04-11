@@ -36,7 +36,7 @@ fn main() {
     // let rattle = presets::waverows().reverse();
 
     loop {
-        print!("\r{}", rattle.current_row());
+        print!("\r{}", rattle.current_frame());
         std::io::stdout().flush().unwrap();
         std::thread::sleep(Duration::from_millis(20));
     }
@@ -57,6 +57,21 @@ rattle!(
 )
 ```
 
+### `no_std` support
+
+`rattles` enables the `std` feature by default. To use it in `no_std` mode:
+
+```sh
+cargo add rattles --no-default-features
+```
+
+In `no_std` mode, use time-driven or index-based APIs.
+The following APIs are only available with `std` enabled:
+
+- `Rattler::current_frames()`
+- `Rattler::current_frame()`
+- `Rattler::index()`
+
 ## Presets
 
 Built-in presets are organized by category:
@@ -75,6 +90,8 @@ Example showcasing all presets, built with [ratatui](https://ratatui.rs/):
 ```bash
 cargo run --example showcase
 ```
+
+There's also a minimal no_std-oriented usage example found [here](./examples/no_std.rs).
 
 ## Acknowledgements
 

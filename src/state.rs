@@ -1,6 +1,9 @@
-use crate::{Size, clock};
-use std::marker::PhantomData;
-use std::time::Duration;
+use crate::Size;
+use core::marker::PhantomData;
+use core::time::Duration;
+
+#[cfg(feature = "std")]
+use crate::clock;
 
 pub trait Rattle: Copy + Default {
     const SIZE: Size;
@@ -63,19 +66,40 @@ impl<T: Rattle, const REVERSED: bool> Rattler<T, REVERSED> {
         playback_index_const::<REVERSED>(shifted, len)
     }
 
-    pub fn rows_at_elapsed(&self, elapsed: Duration) -> &'static [&'static str] {
+    pub fn frames(&self, index: usize) -> &'static [&'static str] {
+        let len = T::FRAMES.len();
+        if len == 0 {
+            return &[];
+        }
+        let shifted = (index + self.offset) % len;
+        let idx = playback_index_const::<REVERSED>(shifted, len);
+        &T::FRAMES[idx]
+    }
+
+    pub fn frame(&self, index: usize) -> &'static str {
+        self.frames(index)[0]
+    }
+
+    pub fn frames_at(&self, elapsed: Duration) -> &'static [&'static str] {
         let idx = self.index_at_elapsed(elapsed);
         &T::FRAMES[idx]
     }
 
-    pub fn current_rows(&self) -> &'static [&'static str] {
-        self.rows_at_elapsed(clock::elapsed())
+    pub fn frame_at(&self, elapsed: Duration) -> &'static str {
+        self.frames_at(elapsed)[0]
     }
 
-    pub fn current_row(&self) -> &'static str {
-        self.current_rows()[0]
+    #[cfg(feature = "std")]
+    pub fn current_frames(&self) -> &'static [&'static str] {
+        self.frames_at(clock::elapsed())
     }
 
+    #[cfg(feature = "std")]
+    pub fn current_frame(&self) -> &'static str {
+        self.current_frames()[0]
+    }
+
+    #[cfg(feature = "std")]
     pub fn index(&self) -> usize {
         self.index_at_elapsed(clock::elapsed())
     }
@@ -132,11 +156,12 @@ impl<T: Rattle> Rattler<T, true> {
     }
 }
 
+#[cfg(feature = "std")]
 impl<T: Rattle, const REVERSED: bool> Iterator for Rattler<T, REVERSED> {
     type Item = &'static [&'static str];
 
     fn next(&mut self) -> Option<Self::Item> {
-        Some(self.current_rows())
+        Some(self.current_frames())
     }
 }
 

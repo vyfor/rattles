@@ -12,6 +12,10 @@ version = "0.1.0"
 [lib]
 crate-type = ["lib"]
 
+[features]
+default = ["std"]
+std = []
+
 [dev-dependencies]
 crossterm = "0.29"
 ratatui = "0.29"
