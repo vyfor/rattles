@@ -4,9 +4,7 @@
 
 **Rattles** is a terminal spinner library for Rust with an extensive preset collection and lets you define custom spinners at compile time.
 
-- **Rattles** is *compile-time first*; all spinner data is baked in at compile time aiming for minimal overhead.
-
-- **Rattles** is *minimal*; it makes no assumptions about how the output will be used, and just works with no prior configuration required. It also has zero dependencies.
+**Rattles** is *minimal*; it makes no assumptions about how the output will be used, and just works. It also has zero dependencies.
 
 ## Philosophy
 
