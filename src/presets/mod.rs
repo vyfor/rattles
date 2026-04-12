@@ -15,7 +15,7 @@ pub mod prelude {
             bounce, breathe, cascade, checkerboard, columns, diagswipe, dots, dots_circle, dots2,
             dots3, dots4, dots5, dots6, dots7, dots8, dots9, dots10, dots11, dots12, dots13,
             dots14, fillsweep, helix, orbit, pulse, rain, sand, scan, snake, sparkle, wave,
-            waverows,
+            waverows, infinity,
         },
         emoji::{clock, earth, hearts, moon, speaker, weather},
     };

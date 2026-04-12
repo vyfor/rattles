@@ -161,6 +161,7 @@ fn build_categories() -> Vec<Category> {
     push_rattler!(braille, "helix", presets::braille::helix);
     push_rattler!(braille, "fillsweep", presets::braille::fillsweep);
     push_rattler!(braille, "diagswipe", presets::braille::diagswipe);
+    push_rattler!(braille, "infinity", presets::braille::infinity);
 
     let mut emoji = Vec::new();
     push_rattler!(emoji, "hearts", presets::emoji::hearts);
