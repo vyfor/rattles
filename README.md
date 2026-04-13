@@ -10,7 +10,7 @@
 cargo add rattles
 ```
 
-### Basic usage
+### Minimal example
 
 ```rust
 use std::{io::Write, time::Duration};
@@ -69,7 +69,7 @@ Without `std`, the global clock is unavailable. Animations can still be driven t
     rattle.tick();
     let frame = rattle.current_frame();
     ```
-    Note that `TickedRattler` is stateful and must be stored prior to the render loop.
+    Note that `TickedRattler` is stateful and must be stored outside the render loop.
 
 ## Presets
 
