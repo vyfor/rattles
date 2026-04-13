@@ -2,15 +2,7 @@
 
 ![Demo](./.github/assets/demo.gif)
 
-**Rattles** is a terminal spinner library for Rust with an extensive preset collection and lets you define custom spinners at compile time.
-
-**Rattles** is *minimal*; it makes no assumptions about how the output will be used, and just works. It also has zero dependencies.
-
-## Philosophy
-
-Most spinner libraries are built as actors or widgets. Rattles is neither. It has no runtime, no lifecycle, and requires no integration by default.
-
-Spinners can be constructed directly in the render loop with negligible cost. The result is a library that gets out of your way.
+**Rattles** is a minimal, dependency-free terminal spinner library for Rust. It makes no assumptions about how the output will be used.
 
 ## Quick Start
 
@@ -77,7 +69,7 @@ Without `std`, the global clock is unavailable. Animations can still be driven t
     rattle.tick();
     let frame = rattle.current_frame();
     ```
-    Note that `TickedRattler` is stateful and must be stored.
+    Note that `TickedRattler` is stateful and must be stored prior to the render loop.
 
 ## Presets
 
@@ -88,7 +80,7 @@ Built-in presets are organized by category:
 - `presets::braille`
 - `presets::emoji`
 
-A prelude is available `rattles::presets::prelude`.
+A prelude is available `rattles::prelude`.
 
 ## Examples
 
