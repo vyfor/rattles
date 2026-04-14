@@ -7,7 +7,7 @@ keywords = ["terminal", "tui", "spinner", "animation", "ratatui"]
 license = "MIT"
 name = "rattles"
 repository = "https://github.com/vyfor/rattles"
-version = "0.3.0"
+version = "0.3.1"
 
 [lib]
 crate-type = ["lib"]
