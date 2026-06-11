@@ -93,3 +93,7 @@ Rattles includes spinners sourced from these wonderful projects. We gratefully a
 
 - [sindresorhus/cli-spinners](https://github.com/sindresorhus/cli-spinners)
 - [gunnargray-dev/unicode-animations](https://github.com/gunnargray-dev/unicode-animations)
+
+## Licensing
+
+Dual licensed under MIT OR Apache-2.0 at your discretion. See [LICENSE-MIT](LICENSE-MIT) and [LICENSE-APACHE](LICENSE-APACHE) for details.
