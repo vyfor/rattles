@@ -2,7 +2,7 @@
 
 ![Demo](./.github/assets/demo.gif)
 
-**Rattles** is a minimal, dependency-free terminal spinner library for Rust. It makes no assumptions about how the output will be used.
+**Rattles** is a minimal, dependency-free terminal spinner/throbber library for Rust. It makes no assumptions about how the output will be used.
 
 ## Quick Start
 

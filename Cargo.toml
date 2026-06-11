@@ -1,9 +1,9 @@
 [package]
 authors = ["vyfor"]
 categories = ["command-line-interface", "no-std", "no-std::no-alloc"]
-description = "Minimal terminal spinners for Rust"
+description = "Minimal terminal spinners/throbbers for Rust"
 edition = "2024"
-keywords = ["terminal", "tui", "spinner", "animation", "ratatui"]
+keywords = ["terminal", "tui", "spinner", "throbber", "ratatui"]
 license = "MIT OR Apache-2.0"
 name = "rattles"
 repository = "https://github.com/vyfor/rattles"
